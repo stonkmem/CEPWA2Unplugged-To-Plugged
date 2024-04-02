@@ -3,11 +3,16 @@ class twoBlock {
         this.vert = V;
         this.occ = occI;
         this.color = col;
+        this.sel = false; // SELECTED
     }
     moveR() {
+      if (this.vert == false && this.sel == true){
         for (let i = 0; i < this.occ.length; i++) {
+          if(ledger[this.occ[0]] == ledger[this.occ[1]]){
             i += 1;
+          }
         }
+      }
     }
     moveL() {
         for (let i = 0; i < this.occ.length; i++) {
@@ -28,7 +33,12 @@ class twoBlock {
         for (let i = 0; i < this.occ.length; i++) {
             rectMode(RADIUS);
             fill(this.color);
-            rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 50, 50);
+            if(this.sel === false){
+                rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 50, 50);
+            }
+            if(this.sel === true){
+                rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 60, 60);
+            }
         }
     }
 }
@@ -79,5 +89,10 @@ function squareToCords(i) {
 }
 
 function mousePressed() {
+    let mind = coordsToSquare(mouseX, mouseY);
     console.log(coordsToSquare(mouseX, mouseY));
+    if (ledger[mind] != 0) {
+        focus=ledger[mind];
+        cars[focus].sel = true;
+    }
 }
