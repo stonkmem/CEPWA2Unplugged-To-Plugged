@@ -3,14 +3,18 @@ let cars = [], ledger = [], focus = 0;
 function setup() {
   createCanvas(600, 600);
   cars.push(new twoBlock(true, [1, 2], color(56, 90, 255)));
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 36; i++) {
       ledger.push(0);
   }
 
   for (let i = 0; i < cars.length; i++){
       for(let j=0; j < cars[i].occ.length; j+=1){
-          ledger[cars[i].occ[j]] = i;
+          ledger[cars[i].occ[j]] = i+1;
       }
+  }
+
+  for(let i=0; i<ledger.length; i+=1){
+      console.log(ledger[i]);
   }
 }
 
@@ -41,7 +45,4 @@ function draw() {
   for(let i = 0; i<cars.length; i+=1){
       cars[i].epoch();
   }
-
-
-
 }
