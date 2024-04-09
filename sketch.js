@@ -1,13 +1,8 @@
-let cars = [], ledger = [], focus = 0, goal = 17;
+let cars = [], ledger = [], focus = 0, goal = 17, moves = 0, purgatory = false;
 
 function setup() {
-    createCanvas(600, 600);
-    cars.push(new twoBlock(false, [1, 2], color("red")));
-    for (let i = 0; i < 36; i++) {
-        ledger.push(0);
-    }
-
-    cars.push(new threeBlock(true, [23, 29, 35], color(56, 90, 255)));
+    createCanvas(800, 800);
+    cars.push(new twoBlock(false, [12, 13], color("red")));
     for (let i = 0; i < 36; i++) {
         ledger.push(0);
     }
@@ -24,35 +19,37 @@ function setup() {
 }
 
 function draw() {
-    background("lightblue")
-
-    //check for win
-    for(let i = 0; i < cars[0].occ.length; i += 1){
-        if(cars[0].occ[i] == goal){
-            console.log(":)");
-        }
-    }
+    // background("lightblue");
+    background(255);
 
     //LAYOUT AND AESTHETICS
     strokeWeight(1)
     //horizontal grid lines
-    line(0, height * 1 / 6, width, height * 1 / 6)
-    line(0, height * 2 / 6, width, height * 2 / 6)
-    line(0, height * 3 / 6, width, height * 3 / 6)
-    line(0, height * 4 / 6, width, height * 4 / 6)
-    line(0, height * 5 / 6, width, height * 5 / 6)
+    fill("lightblue");
+    rectMode(CORNERS);
+    rect(0, 0, 600, 600);
+    for (let i = 0; i <= 600; i += 100) {
+        line(0, i, 600, i);
+        line(i, 0, i, 600);
+    }
+    // line(0, height * 1 / 6, width, height * 1 / 6)
+    // line(0, height * 2 / 6, width, height * 2 / 6)
+    // line(0, height * 3 / 6, width, height * 3 / 6)
+    // line(0, height * 4 / 6, width, height * 4 / 6)
+    // line(0, height * 5 / 6, width, height * 5 / 6)
 
-    //vertical grid lines
-    line(width * 1 / 6, 0, width * 1 / 6, height)
-    line(width * 2 / 6, 0, width * 2 / 6, height)
-    line(width * 3 / 6, 0, width * 3 / 6, height)
-    line(width * 4 / 6, 0, width * 4 / 6, height)
-    line(width * 5 / 6, 0, width * 5 / 6, height)
+    // //vertical grid lines
+    // line(width * 1 / 6, 0, width * 1 / 6, height)
+    // line(width * 2 / 6, 0, width * 2 / 6, height)
+    // line(width * 3 / 6, 0, width * 3 / 6, height)
+    // line(width * 4 / 6, 0, width * 4 / 6, height)
+    // line(width * 5 / 6, 0, width * 5 / 6, height)
 
     //exit zone
     strokeWeight(0)
     fill("red")
-    rect(width, height * 3/6, 10, 100)
+    rectMode(CORNER);
+    rect(600, 200, 10, 100);
 
     for (let i = 0; i < 36; i += 1) {
         ledger[i] = 0;
@@ -65,5 +62,18 @@ function draw() {
 
     for (let i = 0; i < cars.length; i += 1) {
         cars[i].epoch();
+    }
+
+    //check for win
+    for (let i = 0; i < cars[0].occ.length; i += 1) {
+        if (cars[0].occ[i] == goal) {
+            purgatory = true;
+            console.log(":)");
+            fill("black")
+            rect(0, 0, 600, 600);
+            fill("white")
+            textSize(90)
+            text("You Win!", 100, 150);
+        }
     }
 }

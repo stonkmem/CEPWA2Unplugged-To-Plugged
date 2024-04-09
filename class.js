@@ -10,24 +10,24 @@ class twoBlock {
         if (this.vert == false && this.sel == true && ledger[this.occ[1] + 1] == 0 && this.occ[1] % 6 != 5) {
             for (let i = 0; i < this.occ.length; i++) {
                 this.occ[i] += 1;
+                moves += 1;
             }
         }
-        console.log(this.vert, this.sel, this.occ, ledger[this.occ[1] + 1]);
     }
 
     moveL() {
         if (this.vert == false && this.sel == true && this.occ[0] != 0 && ledger[this.occ[0] - 1] == 0 && this.occ[0] % 6 != 0) {
-            for (let i = 0; i < this.occ.length; i++) {
+            for (let i = 0; i < this.occ.length; i += 1) {
                 this.occ[i] -= 1;
+                moves += 1
             }
         }
-        console.log(this.vert, this.sel, this.occ, ledger[this.occ[0] - 1] == 0);
     }
-
     moveU() {
         if (this.vert == true && this.sel == true && ledger[this.occ[0] - 6] == 0 && this.occ[0] > 5) {
             for (let i = 0; i < this.occ.length; i++) {
                 this.occ[i] -= 6;
+                moves += 1;
             }
         }
     }
@@ -36,6 +36,7 @@ class twoBlock {
         if (this.vert == true && this.sel == true && ledger[this.occ[1] + 6] == 0 && this.occ[1] < 30) {
             for (let i = 0; i < this.occ.length; i++) {
                 this.occ[i] += 6;
+                moves += 1;
             }
         }
     }
@@ -139,16 +140,18 @@ function mousePressed() {
 }
 
 function keyPressed() {
-    if (keyCode === RIGHT_ARROW) {
-        cars[focus - 1].moveR();
-    }
-    if (keyCode === LEFT_ARROW) {
-        cars[focus - 1].moveL();
-    }
-    if (keyCode === UP_ARROW) {
-        cars[focus - 1].moveU();
-    }
-    if (keyCode === DOWN_ARROW) {
-        cars[focus - 1].moveD();
+    if (!purgatory) {
+        if (keyCode === RIGHT_ARROW) {
+            cars[focus - 1].moveR();
+        }
+        if (keyCode === LEFT_ARROW) {
+            cars[focus - 1].moveL();
+        }
+        if (keyCode === UP_ARROW) {
+            cars[focus - 1].moveU();
+        }
+        if (keyCode === DOWN_ARROW) {
+            cars[focus - 1].moveD();
+        }
     }
 }
