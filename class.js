@@ -4,7 +4,7 @@ class twoBlock {
         this.occ = occI;
         this.color = col;
         this.sel = false; // SELECTED
-        this.occ.sort();
+        this.occ = this.occ.sort();
     }
     moveR() {
         if (this.vert == false && this.sel == true && ledger[this.occ[1] + 1] == 0 && this.occ[1] % 6 != 5) {
@@ -24,6 +24,7 @@ class twoBlock {
         }
     }
     moveU() {
+
         if (this.vert == true && this.sel == true && ledger[this.occ[0] - 6] == 0 && this.occ[0] > 5) {
             for (let i = 0; i < this.occ.length; i++) {
                 this.occ[i] -= 6;
@@ -44,7 +45,7 @@ class twoBlock {
     epoch() {
         for (let i = 0; i < this.occ.length; i++) {
             rectMode(RADIUS);
-            fill(this.color);
+            fill(this.color); stroke(0); strokeWeight(2);
             if (this.sel === false) {
                 rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 50, 50);
             }
@@ -154,4 +155,6 @@ function keyPressed() {
             cars[focus - 1].moveD();
         }
     }
+    cars[focus - 1].occ.sort((a, b) => a - b);
+    console.log(cars[focus - 1].occ);
 }

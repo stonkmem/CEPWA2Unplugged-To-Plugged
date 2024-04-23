@@ -1,8 +1,11 @@
-let cars = [], ledger = [], focus = 0, goal = 17, moves = 0, purgatory = false;
-
+let cars = [], ledger = [], focus = 0, goal = 17, moves = 0, purgatory = true, level = -1;
+let button
 function setup() {
     createCanvas(800, 800);
-    cars.push(new twoBlock(false, [12, 13], color("red")));
+    newMap();
+    button = createButton("New Game");
+    button.position(0, 0);
+    button.mousePressed(newMap);
     for (let i = 0; i < 36; i++) {
         ledger.push(0);
     }
@@ -55,6 +58,7 @@ function draw() {
         ledger[i] = 0;
     }
     for (let i = 0; i < cars.length; i++) {
+        cars[i].occ.sort((a, b) => a - b);
         for (let j = 0; j < cars[i].occ.length; j += 1) {
             ledger[cars[i].occ[j]] = i + 1;
         }
@@ -73,7 +77,10 @@ function draw() {
             rect(0, 0, 600, 600);
             fill("white")
             textSize(90)
-            text("You Win!", 100, 150);
+            text("You Win!", 100, 150)
+            button.position(230, 300)
+            button.size(100, 50)
+
         }
     }
 }
