@@ -13,7 +13,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
     newMap();
     newMapButton = createButton("New Game");
-    newMapButton.position(0, 600);
+    newMapButton.position(0, 610);
     newMapButton.mousePressed(newMap);
     for (let i = 0; i < 36; i++) {
         ledger.push(0);
@@ -41,7 +41,7 @@ function draw() {
     // background("lightblue");
     background(255);
     push();
-    if (frameCount < screenCount + 20) translate(random(-10, 10), random(-10, 10));
+    if (frameCount < screenCount + 20) translate(random(-5 * (frameCount - screenCount), 5 * (frameCount - screenCount)), random(-5 * (frameCount - screenCount), 5 * (frameCount - screenCount)));
     //LAYOUT AND AESTHETICS
     strokeWeight(1)
     //horizontal grid lines
@@ -89,21 +89,20 @@ function draw() {
     for (let i = 0; i < cars.length; i += 1) {
         cars[i].epoch();
     }
-
     //check for win
     for (let i = 0; i < cars[0].occ.length; i += 1) {
         if (cars[0].occ[i] == goal) {
             purgatory = true;
+            newMapButton.show();
             console.log(":)");
-            fill("black")
-            rect(0, 0, 610, 610);
-            fill("white")
-            textSize(90)
+            fill("black");
+            rectMode(CORNERS);
+            rect(0, 0, 600, 610);
+            fill("white");
+            textSize(90);
             text("You Win!", 100, 150)
-
-
-
         }
     }
+    if (!purgatory) newMapButton.hide();
     pop();
 }

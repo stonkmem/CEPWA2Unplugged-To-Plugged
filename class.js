@@ -82,17 +82,6 @@ class twoBlock {
             rectMode(CENTER);
             rect(this.spirit.x, this.spirit.y, 98, 198)
         }
-        // for (let i = 0; i < this.occ.length; i++) {
-        //     rectMode(RADIUS);
-        //     fill(this.color); stroke(0); strokeWeight(2);
-        //     if (this.sel === false) {
-        //         rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 50, 50);
-        //     }
-        //     if (this.sel === true) {
-        //         rect(squareToCords(this.occ[i]).x, squareToCords(this.occ[i]).y, 60, 60);
-        //     }
-        // }
-        // console.log(this.spirit);
     }
 }
 
@@ -184,13 +173,15 @@ function squareToCords(i) {
 function mousePressed() {
     let mind = coordsToSquare(mouseX, mouseY);
     if (mind != -1 && (ledger[mind] != 0 && cars[ledger[mind] - 1].sel == true)) {
-        cars[focus - 1].sel = false;
+        if (focus > 0) cars[focus - 1].sel = false;
     }
     else {
-        if (mind < 0) mind = 0;
-        // console.log(focus);
-        if (focus != 0) {
+        if (focus > 0) {
             cars[focus - 1].sel = false;
+        }
+        if (mind < 0) {
+            focus = -1;
+            return;
         }
         // console.log(ledger[mind]);
         focus = ledger[mind];
@@ -201,7 +192,7 @@ function mousePressed() {
 }
 
 function keyPressed() {
-    if (!purgatory) {
+    if (!purgatory && focus > 0) {
         if (keyCode === RIGHT_ARROW) {
             cars[focus - 1].moveR();
         }

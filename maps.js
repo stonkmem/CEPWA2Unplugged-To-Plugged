@@ -1,11 +1,11 @@
 let
-map1 = {
-    "goal": 17,
-    "cars": [
-        [2, false, [12, 13], "red"], [2, false, [0, 1], "blue"], [2, false, [2, 3], "black"], [2, true, [14, 20], "gray"], [2, true, [26, 32], "yellow"], [2, true, [10, 16], "palegreen"], [3, true, [5, 11, 17], "gray"], [3, true, [19, 25, 31], "gray"], [3, false, [6, 7, 8], "purple"]
-    ],
-    "walls": []
-}
+    map1 = {
+        "goal": 17,
+        "cars": [
+            [2, false, [12, 13], "red"], [2, false, [0, 1], "blue"], [2, false, [2, 3], "black"], [2, true, [14, 20], "gray"], [2, true, [26, 32], "yellow"], [2, true, [10, 16], "palegreen"], [3, true, [5, 11, 17], "gray"], [3, true, [19, 25, 31], "gray"], [3, false, [6, 7, 8], "purple"]
+        ],
+        "walls": []
+    }
 
 
 map2 = {
@@ -26,7 +26,6 @@ map3 = {
 
 let maps = [map1, map2, map3];
 function newMap() {
-  
     cars = [], ledger = [], focus = 0, moves = 0, purgatory = false;
     if (level === 4) { console.log("Nah, I'd win."); noLoop(); }
     else {
